@@ -34,7 +34,32 @@ public class CommonPost {
     private static String setGroupAnonymousBan = "/set_group_anonymous_ban";
     private static String setGroupWholeBan = "/set_group_whole_ban";
     private static String setGroupAdmin = "/set_group_admin";
-//    private static String
+    private static String setGroupAnonymous = "/set_group_anonymous";
+    private static String setGroupCard = "/set_group_card";
+    private static String setGroupLeave = "/set_group_leave";
+    private static String setGroupSpecialTitle = "/set_group_special_title";
+    private static String setDiscussLeave = "/set_discuss_leave";
+    private static String setFriendAddRequest = "/set_friend_add_request";
+    private static String setGroupAddRequest = "/set_group_add_request";
+    private static String getLoginInfo = "/get_login_info";
+    private static String getStrangerInfo = "/get_stranger_info";
+    private static String getFriendList = "/get_friend_list";
+    private static String getGroupList = "/get_group_list";
+    private static String getGroupInfo = "/get_group_info";
+    private static String getGroupMemberInfo = "/get_group_member_info";
+    private static String getGroupMemberList = "/get_group_member_list";
+    private static String getCookies = "/get_cookies";
+    private static String getCsrfToken = "/get_csrf_token";
+    private static String getCredentials = "/get_credentials";
+    private static String getRecord = "/get_record";
+    private static String getImage = "/get_image";
+    private static String canSendImage = "/can_send_image";
+    private static String canSendRecord = "/can_send_record";
+    private static String getStatus = "/get_status";
+    private static String getVersionInfo = "/get_version_info";
+    private static String setRestartPlugin = "/set_restart_plugin";
+    private static String cleanDataDir = "/clean_data_dir";
+    private static String cleanPluginLog = "/clean_plugin_log";
 
     public static Map sendPrivateMsg(String user_id, String message){
         MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
