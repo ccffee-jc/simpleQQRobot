@@ -61,10 +61,11 @@ public class CommonPost {
     private static String cleanDataDir = "/clean_data_dir";
     private static String cleanPluginLog = "/clean_plugin_log";
 
-    public static Map sendPrivateMsg(String user_id, String message){
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
-        params.add("user_id", user_id);
+    public static Map sendPrivateMsg(String userId, String message, Boolean autoEscape){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("user_id", userId);
         params.add("message", message);
+        params.add("auto_escape", autoEscape);
 
         String url = headUrl + sendPrivateMsg;
 
@@ -77,7 +78,7 @@ public class CommonPost {
 
     }
     public static Map sendGroupMsg(String group_id, String message){
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
         params.add("group_id", group_id);
         params.add("message", message);
 
@@ -90,8 +91,25 @@ public class CommonPost {
 
         return resultMap;
     }
+    public static Map sendDiscussMsg(Long discussId, String message, Boolean autoEscape){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("discuss_id", discussId);
+        params.add("message", message);
+        params.add("auto_escape", autoEscape);
+
+        String url = headUrl + sendDiscussMsg;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+
+
     public static Map setGroupBan(Integer groupId, Long userId, Integer duration){
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
         params.add("group_id", groupId.toString());
         params.add("user_id", userId.toString());
         params.add("duration", duration.toString());
@@ -105,4 +123,6 @@ public class CommonPost {
 
         return resultMap;
     }
+
+
 }
