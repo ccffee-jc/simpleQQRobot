@@ -106,8 +106,66 @@ public class CommonPost {
 
         return resultMap;
     }
+    public static Map sendMsg(String messageType, Long userId, Long groupId, Long discussId, String message, Boolean autoEscape){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("message_type", messageType);
+        params.add("user_id", userId);
+        params.add("group_id", groupId);
+        params.add("discuss_id", discussId);
+        params.add("message", message);
+        params.add("auto_escape", autoEscape);
 
+        String url = headUrl + sendMsg;
 
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map deleteMsg(Long messageId){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("message_id", messageId);
+
+        String url = headUrl + deleteMsg;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map sendLike(Long userId, Integer times){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("user_id", userId);
+        params.add("times", times);
+
+        String url = headUrl + sendLike;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupKick(Long groupId, Long userId, Boolean rejectAddRequest){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("user_id", userId);
+        params.add("reject_add_request", rejectAddRequest);
+
+        String url = headUrl + setGroupKick;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
     public static Map setGroupBan(Integer groupId, Long userId, Integer duration){
         MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
         params.add("group_id", groupId.toString());
@@ -123,6 +181,179 @@ public class CommonPost {
 
         return resultMap;
     }
+    public static Map setGroupAnonymousBan(Long groupId, Object anonymous, String flag, Integer duration){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("anonymous", anonymous);
+        params.add("flag", flag);
+        params.add("duration", duration);
 
+        String url = headUrl + setGroupAnonymousBan;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupWholeBan(Long groupId, Boolean enable){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("enable", enable);
+
+        String url = headUrl + setGroupWholeBan;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupAdmin(Long groupId, Long userId, Boolean enable){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("user_id", userId);
+        params.add("enable", enable);
+
+        String url = headUrl + setGroupAdmin;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupAnonymous(Long groupId, Boolean enable){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("enable", enable);
+
+        String url = headUrl + setGroupAnonymous;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupCard(Long groupId, Long userId, String card){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("user_id", userId);
+        params.add("card", card);
+
+        String url = headUrl + setGroupCard;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupLeave(Long groupId, Boolean isDismiss){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("is_dismiss", isDismiss);
+
+        String url = headUrl + setGroupLeave;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupSpecialTitle(Long groupId, Long userId, String specialTitle, Integer duration){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("user_id", userId);
+        params.add("special_title", specialTitle);
+        params.add("duration", duration);
+
+        String url = headUrl + setGroupSpecialTitle;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setDiscussLeave(Long discussId){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("discuss_id", discussId);
+
+        String url = headUrl + setDiscussLeave;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setFriendAddRequest(String flag, Boolean approve, String remark){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("flag", flag);
+        params.add("approve", approve);
+        params.add("remark", remark);
+
+        String url = headUrl + setFriendAddRequest;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setGroupAddRequest(String flag, String type, Boolean approve, String reason){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("flag", flag);
+        params.add("type", type);
+        params.add("approve", approve);
+        params.add("reason", reason);
+
+        String url = headUrl + setGroupAddRequest;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getLoginInfo(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + getLoginInfo;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getStrangerInfo(Long userId, Boolean noCache){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("user_id", userId);
+        params.add("no_cache", noCache);
+
+        String url = headUrl + getStrangerInfo;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
 
 }

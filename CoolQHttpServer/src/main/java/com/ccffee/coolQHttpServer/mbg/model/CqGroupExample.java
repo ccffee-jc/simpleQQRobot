@@ -233,6 +233,66 @@ public class CqGroupExample {
             addCriterion("num not between", value1, value2, "num");
             return (Criteria) this;
         }
+
+        public Criteria andConnectIsNull() {
+            addCriterion("connect is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectIsNotNull() {
+            addCriterion("connect is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectEqualTo(Integer value) {
+            addCriterion("connect =", value, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectNotEqualTo(Integer value) {
+            addCriterion("connect <>", value, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectGreaterThan(Integer value) {
+            addCriterion("connect >", value, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectGreaterThanOrEqualTo(Integer value) {
+            addCriterion("connect >=", value, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectLessThan(Integer value) {
+            addCriterion("connect <", value, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectLessThanOrEqualTo(Integer value) {
+            addCriterion("connect <=", value, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectIn(List<Integer> values) {
+            addCriterion("connect in", values, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectNotIn(List<Integer> values) {
+            addCriterion("connect not in", values, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectBetween(Integer value1, Integer value2) {
+            addCriterion("connect between", value1, value2, "connect");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnectNotBetween(Integer value1, Integer value2) {
+            addCriterion("connect not between", value1, value2, "connect");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

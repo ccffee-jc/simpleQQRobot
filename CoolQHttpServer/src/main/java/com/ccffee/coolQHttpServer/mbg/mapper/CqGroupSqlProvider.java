@@ -33,6 +33,10 @@ public class CqGroupSqlProvider {
             sql.VALUES("num", "#{num,jdbcType=VARCHAR}");
         }
         
+        if (record.getConnect() != null) {
+            sql.VALUES("connect", "#{connect,jdbcType=INTEGER}");
+        }
+        
         return sql.toString();
     }
 
@@ -44,6 +48,7 @@ public class CqGroupSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("num");
+        sql.SELECT("connect");
         sql.FROM("cq_group");
         applyWhere(sql, example, false);
         
@@ -69,6 +74,10 @@ public class CqGroupSqlProvider {
             sql.SET("num = #{record.num,jdbcType=VARCHAR}");
         }
         
+        if (record.getConnect() != null) {
+            sql.SET("connect = #{record.connect,jdbcType=INTEGER}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -79,6 +88,7 @@ public class CqGroupSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("num = #{record.num,jdbcType=VARCHAR}");
+        sql.SET("connect = #{record.connect,jdbcType=INTEGER}");
         
         CqGroupExample example = (CqGroupExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -91,6 +101,10 @@ public class CqGroupSqlProvider {
         
         if (record.getNum() != null) {
             sql.SET("num = #{num,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getConnect() != null) {
+            sql.SET("connect = #{connect,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

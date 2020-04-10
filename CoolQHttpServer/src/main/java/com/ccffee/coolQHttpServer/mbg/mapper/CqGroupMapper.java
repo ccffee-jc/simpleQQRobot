@@ -31,8 +31,8 @@ public interface CqGroupMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into cq_group (num)",
-        "values (#{num,jdbcType=VARCHAR})"
+        "insert into cq_group (num, connect)",
+        "values (#{num,jdbcType=VARCHAR}, #{connect,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(CqGroup record);
@@ -44,19 +44,21 @@ public interface CqGroupMapper {
     @SelectProvider(type=CqGroupSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="num", property="num", jdbcType=JdbcType.VARCHAR)
+        @Result(column="num", property="num", jdbcType=JdbcType.VARCHAR),
+        @Result(column="connect", property="connect", jdbcType=JdbcType.INTEGER)
     })
     List<CqGroup> selectByExample(CqGroupExample example);
 
     @Select({
         "select",
-        "id, num",
+        "id, num, connect",
         "from cq_group",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="num", property="num", jdbcType=JdbcType.VARCHAR)
+        @Result(column="num", property="num", jdbcType=JdbcType.VARCHAR),
+        @Result(column="connect", property="connect", jdbcType=JdbcType.INTEGER)
     })
     CqGroup selectByPrimaryKey(Integer id);
 
@@ -71,7 +73,8 @@ public interface CqGroupMapper {
 
     @Update({
         "update cq_group",
-        "set num = #{num,jdbcType=VARCHAR}",
+        "set num = #{num,jdbcType=VARCHAR},",
+          "connect = #{connect,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(CqGroup record);

@@ -10,6 +10,9 @@ public class CqGroup implements Serializable {
     @ApiModelProperty(value = "群号")
     private String num;
 
+    @ApiModelProperty(value = "连接码，0为不连接")
+    private Integer connect;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -28,6 +31,14 @@ public class CqGroup implements Serializable {
         this.num = num;
     }
 
+    public Integer getConnect() {
+        return connect;
+    }
+
+    public void setConnect(Integer connect) {
+        this.connect = connect;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -36,6 +47,7 @@ public class CqGroup implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", num=").append(num);
+        sb.append(", connect=").append(connect);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
