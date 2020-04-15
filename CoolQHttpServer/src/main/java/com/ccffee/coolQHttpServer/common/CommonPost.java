@@ -355,5 +355,223 @@ public class CommonPost {
 
         return resultMap;
     }
+    public static Map getFriendList(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + getFriendList;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getGroupList(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + getGroupList;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getGroupInfo(Long groupId, Boolean noCache){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("no_cache", noCache);
+
+        String url = headUrl + getGroupInfo;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getGroupMemberInfo(Long groupId, Long userId, Boolean noCache){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+        params.add("user_id", userId);
+        params.add("no_cache", noCache);
+
+        String url = headUrl + getGroupMemberInfo;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getGroupMemberList(Long groupId){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("group_id", groupId);
+
+        String url = headUrl + getGroupMemberList;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getCookies(String domain){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("domain", domain);
+
+        String url = headUrl + getCookies;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getCsrfToken(Long token){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("token", token);
+
+        String url = headUrl + getCsrfToken;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getCredentials(String domain){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("domain", domain);
+
+        String url = headUrl + getCredentials;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getRecord(String file, String outFormat, Boolean fullPath){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("file", file);
+        params.add("out_format", outFormat);
+        params.add("full_path", fullPath);
+
+        String url = headUrl + getRecord;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getImage(String file){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+        params.add("file", file);
+
+        String url = headUrl + getImage;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map canSendImage(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + canSendImage;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map canSendRecord(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + canSendRecord;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getStatus(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + getStatus;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map getVersionInfo(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + getVersionInfo;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map setRestartPlugin(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + setRestartPlugin;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map cleanDataDir(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + cleanDataDir;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+    public static Map cleanPluginLog(){
+        MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
+
+        String url = headUrl + cleanPluginLog;
+
+        String result = httpSenderService.send(url, method, params);
+
+        JSONObject resultJson = JSONObject.parseObject(result);
+        Map resultMap = (Map) resultJson;
+
+        return resultMap;
+    }
+
 
 }
