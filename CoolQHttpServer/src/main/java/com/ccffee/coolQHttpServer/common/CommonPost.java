@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,7 +20,7 @@ public class CommonPost {
     private static HttpSenderService httpSenderService = new HttpSenderServicelmpl();
 
     //当环境发生变化时需要修改
-    private static String headUrl = "http://127.0.0.1:5700/";
+    private static String headUrl = "http://www.jincheng.run:5700/";
 
     private static HttpMethod method = HttpMethod.POST;
 

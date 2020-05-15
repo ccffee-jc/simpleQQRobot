@@ -30,12 +30,12 @@
         </jdbcConnection>
         <!--指定生成model的路径-->
 <!--        /home/luojincheng/xiaoda/src/main/java/com/xiaoda/cms/mbg/model-->
-        <javaModelGenerator targetPackage="com.ccffee.coolQHttpServer.mbg.model" targetProject="/home/luojincheng/CoolQHttpListen/simpleQQRobot/CoolQHttpServer/src/main/java"/>
+        <javaModelGenerator targetPackage="com.ccffee.coolQHttpServer.mbg.model" targetProject="D://coolQ/simpleQQRobot/CoolQHttpServer/src/main/java"/>
         <!--指定生成mapper.xml的路径-->
-        <sqlMapGenerator targetPackage="com.ccffee.coolQHttpServer.mbg.mapper" targetProject="/home/luojincheng/CoolQHttpListen/simpleQQRobot/CoolQHttpServer/src/main/resources"/>
+        <sqlMapGenerator targetPackage="com.ccffee.coolQHttpServer.mbg.mapper" targetProject="D://coolQ/simpleQQRobot/CoolQHttpServer/src/main/resources"/>
         <!--指定生成mapper接口的的路径-->
         <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.ccffee.coolQHttpServer.mbg.mapper"
-                             targetProject="/home/luojincheng/CoolQHttpListen/simpleQQRobot/CoolQHttpServer/src/main/java"/>
+                             targetProject="D://coolQ/simpleQQRobot/CoolQHttpServer/src/main/java"/>
         <!--生成全部表tableName设为%-->
         <table tableName="%">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
