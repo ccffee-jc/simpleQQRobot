@@ -96,33 +96,6 @@
 			<artifactId>hutool-all</artifactId>
 			<version>4.5.7</version>
 		</dependency>
-		<!--JWT(Json Web Token)登录支持-->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.0</version>
-		</dependency>
-
-		<!-- excel解析包 -->
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-		<!--处理2003 excel-->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.16</version>
-		</dependency>
-		<!--处理2007 excel-->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>3.16</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.alibaba</groupId>

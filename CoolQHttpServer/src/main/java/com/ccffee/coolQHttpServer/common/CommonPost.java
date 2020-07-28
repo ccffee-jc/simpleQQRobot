@@ -25,7 +25,7 @@ public class CommonPost {
     private static HttpMethod method = HttpMethod.POST;
 
     private static String sendPrivateMsg = "/send_private_msg";
-    private static String sendGroupMsg = "/send_group_msg";
+    private static String sendGroupMsg = "/send_group_msg_rate_limited";
     private static String sendDiscussMsg = "/send_discuss_msg";
     private static String sendMsg = "/send_msg";
     private static String deleteMsg = "/delete_msg";
@@ -167,7 +167,7 @@ public class CommonPost {
 
         return resultMap;
     }
-    public static Map setGroupBan(Integer groupId, Long userId, Integer duration){
+    public static Map setGroupBan(String groupId, String userId, Integer duration){
         MultiValueMap<String, Object> params= new LinkedMultiValueMap<String, Object>();
         params.add("group_id", groupId.toString());
         params.add("user_id", userId.toString());

@@ -13,6 +13,8 @@ public class HttpUtil {
         //目标接口地址
         String url = "http://openapi.tuling123.com/openapi/api/v2";
 
+        String tulingApiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx";  //图灵机器人的apiKey
+
         //请求参数JOSN类型
         HashMap data = new HashMap();
         data.put("reqType", 0);
@@ -22,18 +24,16 @@ public class HttpUtil {
         perception.put("inputText", inputText);
         data.put("perception", perception);
         HashMap userInfo = new HashMap();
-        userInfo.put("apiKey", "b7c3a3b7e2da48b7a2ff7ba922caba94");
+        userInfo.put("apiKey", tulingApiKey);
         userInfo.put("userId", userId);
         data.put("userInfo", userInfo);
 
         JSONObject postData = (JSONObject) JSON.toJSON(data);
-//        System.out.println(postData);
 
         RestTemplate client = new RestTemplate();
 
         String json = client.postForEntity(url, postData, String.class).getBody();
 
-//        System.out.println(json);
 
         JSONObject resultJson = JSONObject.parseObject(json);
         Map resultMap = (Map) resultJson;
