@@ -13,7 +13,8 @@ public class HttpUtil {
         //目标接口地址
         String url = "http://openapi.tuling123.com/openapi/api/v2";
 
-        String tulingApiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx";  //图灵机器人的apiKey
+//        String tulingApiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx";  //图灵机器人的apiKey
+        String tulingApiKey = "b7c3a3b7e2da48b7a2ff7ba922caba94";
 
         //请求参数JOSN类型
         HashMap data = new HashMap();
