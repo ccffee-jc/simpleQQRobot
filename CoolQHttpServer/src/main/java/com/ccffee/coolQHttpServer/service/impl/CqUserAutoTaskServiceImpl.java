@@ -1,13 +1,13 @@
 package com.ccffee.coolQHttpServer.service.impl;
 
-import com.ccffee.coolQHttpServer.mbg.mapper.CqGroupMapper;
-import com.ccffee.coolQHttpServer.mbg.mapper.CqTaskMapper;
-import com.ccffee.coolQHttpServer.mbg.mapper.CqTimeMapper;
-import com.ccffee.coolQHttpServer.mbg.mapper.CqUserMapper;
+import com.ccffee.coolQHttpServer.Util.DateUtil;
+import com.ccffee.coolQHttpServer.mbg.mapper.*;
 import com.ccffee.coolQHttpServer.mbg.model.*;
 import com.ccffee.coolQHttpServer.service.CqUserAutoTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CqUserAutoTaskServiceImpl implements CqUserAutoTaskService {
@@ -19,6 +19,8 @@ public class CqUserAutoTaskServiceImpl implements CqUserAutoTaskService {
     private CqTimeMapper cqTimeMapper;
     @Autowired
     private CqTaskMapper cqTaskMapper;
+    @Autowired
+    private CqTimenameMapper cqTimenameMapper;
 
     @Override
     public int addTask(String type, String day, String hour, String message, String targerNum) {
@@ -54,5 +56,44 @@ public class CqUserAutoTaskServiceImpl implements CqUserAutoTaskService {
         if (stu != 1)return -1;
 
         return 1;
+    }
+
+    @Override
+    public String setUserAutoTask(String message, String targerId, String type) {
+        //将参数分割
+        String[] messageArr = message.split(" ");
+
+        //todo 检测hour格式是否正确
+
+        String[] hourArr = messageArr[2].split("\\.");
+        for (int i = 0; i < hourArr.length; i++){
+            if (hourArr[i].length() != 2)
+                hourArr[i] = "0" + hourArr[i];
+        }
+        messageArr[2] = hourArr[0] + "." + hourArr[1];
+
+
+        if (messageArr.length != 4)
+            return "输入的参数数量错误，请确认是否输入三个参数，输入格式应该为：@机器人 提醒 日期 时间 消息";
+
+        //检测day是否合法
+        //判断有无在timeName表中
+        CqTimenameExample cqTimenameExample = new CqTimenameExample();
+        cqTimenameExample.createCriteria().andTimenameEqualTo(messageArr[1]);
+        List<CqTimename> cqTimenameList = cqTimenameMapper.selectByExample(cqTimenameExample);
+        int stu;
+        if (cqTimenameList.size() == 1){
+            stu = addTask(type, messageArr[1], messageArr[2], messageArr[3], targerId);
+            if (stu != 1)return "定时提醒设置失败";
+            return "定时提醒设置成功";
+        }
+
+        //timeName表中无day，此时形式应该为2020/5/24类似
+        messageArr[1] = DateUtil.checkCan2yyyyMMdd(messageArr[1]);
+        if (messageArr[1] == null)return "日期格式错误，请修改后重试";
+        stu = addTask(type, messageArr[1], messageArr[2], messageArr[3], targerId);
+        if (stu != 1)return "定时提醒设置失败";
+        return "定时提醒设置成功";
+
     }
 }

@@ -9,13 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ccffee</groupId>
-	<artifactId>coolQHttpServer</artifactId>
+	<artifactId>NotifyRobot</artifactId>
 	<version>1.0</version>
 
     <packaging>jar</packaging>
 
-    <name>qqRobot</name>
-	<description>Demo project for Spring Boot</description>
+    <name>NotifyRobot</name>
+	<description>NotifyRobot</description>
 
 	<properties>
 		<java.version>1.8</java.version>

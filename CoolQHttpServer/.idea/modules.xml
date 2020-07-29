@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/coolQHttpServer.iml" filepath="$PROJECT_DIR$/coolQHttpServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NotifyRobot.iml" filepath="$PROJECT_DIR$/NotifyRobot.iml" />
     </modules>
   </component>
 </project>
