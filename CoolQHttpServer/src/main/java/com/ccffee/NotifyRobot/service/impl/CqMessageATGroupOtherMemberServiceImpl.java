@@ -1,13 +1,20 @@
 package com.ccffee.NotifyRobot.service.impl;
 
+import com.ccffee.NotifyRobot.Util.cqCode.CqCode;
+import com.ccffee.NotifyRobot.Util.cqCode.CqCodeUtil;
 import com.ccffee.NotifyRobot.common.CommonPost;
 import com.ccffee.NotifyRobot.service.CqMessageATGroupOtherMemberService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class CqMessageATGroupOtherMemberServiceImpl implements CqMessageATGroupOtherMemberService {
+
+    @Value("${qq.num.superAdmin}")
+    private String superAdminQQNum;
 
     @Override
     public HashMap messageDistributor(String message, String groupId, String userId) {
@@ -23,14 +30,11 @@ public class CqMessageATGroupOtherMemberServiceImpl implements CqMessageATGroupO
     }
 
     private HashMap randomBan0_60Second(String message, String groupId, String userId) {
-        String atString = message.substring(message.indexOf("[CQ:at,qq="));
-
-        String atQQ = atString.split("]")[0].split("qq=")[1];
-
+        List<CqCode> atCqCodeList = CqCodeUtil.getATCqCodeByMessage(message);
 
         int second = (int)(Math.random() * 60);
 
-        if (atQQ.equals("1013154158")){
+        if (CqCodeUtil.checkMessageIsAT2QQNum(message, superAdminQQNum)){
             CommonPost.setGroupBan(groupId, userId, 60 * second );
 
             HashMap result = new HashMap();
@@ -38,32 +42,27 @@ public class CqMessageATGroupOtherMemberServiceImpl implements CqMessageATGroupO
             return result;
         }
 
-
-        CommonPost.setGroupBan(groupId, atQQ, 60 * second );
-
-        CommonPost.sendGroupMsg(groupId, "[CQ:at,qq="+atQQ+"] 恭喜抽到"+second+"分钟");
-
+        for (CqCode cqCode: atCqCodeList) {
+            CommonPost.setGroupBan(groupId, cqCode.getParam().get("qq"), 60 * second);
+            CommonPost.sendGroupMsg(groupId, CqCodeUtil.getCqCodeStrByCqCode(cqCode) + " 恭喜抽到" + second + "分钟");
+        }
         return null;
     }
 
     private HashMap removeBan(String message, String groupId, String userId) {
-        String atString = message.substring(message.indexOf("[CQ:at,qq="));
+        List<CqCode> atCqCodeList = CqCodeUtil.getATCqCodeByMessage(message);
 
-        String atQQ = atString.split("]")[0].split("qq=")[1];
-
-        CommonPost.setGroupBan(groupId, atQQ, 0 );
-
-        CommonPost.sendGroupMsg(groupId, "[CQ:at,qq="+atQQ+"] 已经将奖品撤销");
-
+        for (CqCode cqCode: atCqCodeList) {
+            CommonPost.setGroupBan(groupId, cqCode.getParam().get("qq"), 0);
+            CommonPost.sendGroupMsg(groupId, CqCodeUtil.getCqCodeStrByCqCode(cqCode) + " 已经将奖品撤销");
+        }
         return null;
     }
 
     private HashMap justKidding(String message, String groupId, String userId) {
-        String atString = message.substring(message.indexOf("[CQ:at,qq="));
+        List<CqCode> atCqCodeList = CqCodeUtil.getATCqCodeByMessage(message);
 
-        String atQQ = atString.split("]")[0].split("qq=")[1];
-
-        if (atQQ.equals("1013154158")){
+        if (CqCodeUtil.checkMessageIsAT2QQNum(message, superAdminQQNum)){
             int second = (int)(Math.random() * 60);
 
             CommonPost.setGroupBan(groupId, userId, 60 * second );
@@ -73,7 +72,10 @@ public class CqMessageATGroupOtherMemberServiceImpl implements CqMessageATGroupO
             return result;
         }
 
-        CommonPost.sendGroupMsg(groupId, "[CQ:at,qq="+atQQ+"] 真不要脸");
+        for (CqCode cqCode: atCqCodeList) {
+            CommonPost.sendGroupMsg(groupId, CqCodeUtil.getCqCodeStrByCqCode(cqCode) + " 真不要脸");
+        }
+
         CommonPost.sendGroupMsg(groupId,
                 "——————/´ ¯/)\n" +
                         "—————-/—-/\n" +

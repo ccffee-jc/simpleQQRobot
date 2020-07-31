@@ -12,6 +12,7 @@ import com.ccffee.NotifyRobot.service.CqMessageATGroupOtherMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -30,6 +31,9 @@ public class CqMessageEntryServicelmpl implements CqMessageEntryService {
     private CqMessageATGroupOtherMemberService cqMessageATGroupOtherMemberService;
     @Autowired
     private CqMessageATRobotService cqMessageATRobotService;
+
+    @Value("${qq.num.robot}")
+    private String robotQQNum;
 
     @Override
     public HashMap coolQhttpServer(HashMap param) {
@@ -89,11 +93,9 @@ public class CqMessageEntryServicelmpl implements CqMessageEntryService {
         saveMessage(message, cqUser, cqGroup);
 
         //群组有@消息
-//        if (message.indexOf("[CQ:at") != -1) {
-
-        if (message.indexOf("[CQ:at") != -1) {
+        if (CqCodeUtil.checkMessageIsAT2QQNum(message, "*")) {
             //艾特了小黑机器人
-            if (message.indexOf("[CQ:at,qq=352419920]") != -1) {
+            if (CqCodeUtil.checkMessageIsAT2QQNum(message, robotQQNum)) {
                 return cqMessageATRobotService.messageDistributor(message, groupId, userId);
             } else {
                 return cqMessageATGroupOtherMemberService.messageDistributor(message, groupId, userId);

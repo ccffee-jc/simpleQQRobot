@@ -1,5 +1,6 @@
 package com.ccffee.NotifyRobot.Util.cqCode;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,16 +64,52 @@ public class CqCodeUtil {
         return cqCodeStr.toString();
     }
 
-    public static List<String> cqCodeStrFilter(String message){
-        List<String> codeStrList = new ArrayList();
+    public static List<CqCode> cqCodeFilter(String message){
+        List<CqCode> codeStrList = new ArrayList();
         while (message.indexOf("[CQ") != -1){
             message = message.substring(message.indexOf("[CQ"));
 
-            codeStrList.add(message.substring(0, message.indexOf("]")+1));
+            CqCode cqCode = getCqCodeByCqCOdeStr(message.substring(0, message.indexOf("]")+1));
+
+            if (cqCode != null)
+                codeStrList.add(cqCode);
 
             message = message.substring(message.indexOf("]")+1);
         }
 
         return codeStrList;
+    }
+
+    /**
+     * 判断消息是否@了指定qq号，qq号为"*"是代表任何人（即有无AT消息）
+     * @param message 消息
+     * @param qqNum qq号
+     * @return
+     */
+    public static Boolean checkMessageIsAT2QQNum(String message, String qqNum){
+        List<CqCode> cqCodeList = cqCodeFilter(message);
+
+        for (CqCode cqCode: cqCodeList){
+            if (cqCode == null) continue;
+            if (cqCode.getCQ() == Cq.AT){
+                if (qqNum.equals("*") || cqCode.getParam().get("qq").equals(qqNum)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static List<CqCode> getATCqCodeByMessage(String message){
+        List<CqCode> aTCqCodeList = new ArrayList<>();
+        List<CqCode> cqCodeList = cqCodeFilter(message);
+
+        for (CqCode cqCode: cqCodeList){
+            if (cqCode.getCQ() == Cq.AT)
+                aTCqCodeList.add(cqCode);
+        }
+
+        return aTCqCodeList;
+
     }
 }
