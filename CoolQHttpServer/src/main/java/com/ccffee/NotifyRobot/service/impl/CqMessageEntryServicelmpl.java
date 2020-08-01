@@ -57,6 +57,7 @@ public class CqMessageEntryServicelmpl implements CqMessageEntryService {
 
     private HashMap groupMassage(HashMap param){
 
+
         //判断该消息是否为普通消息
         String subType = (String)param.get("sub_type");
         if (!subType.equals("normal"))return null;
@@ -74,6 +75,7 @@ public class CqMessageEntryServicelmpl implements CqMessageEntryService {
         String message = (String)param.get("message");
         Integer time = (Integer)param.get("time");
 
+        System.out.println(message);
 
         /**
          * 获取用户

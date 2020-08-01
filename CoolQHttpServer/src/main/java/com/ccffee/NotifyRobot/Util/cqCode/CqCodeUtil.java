@@ -112,4 +112,17 @@ public class CqCodeUtil {
         return aTCqCodeList;
 
     }
+
+    public static List<CqCode> getIMAGECqCodeByMessage(String message){
+        List<CqCode> CqCodeList = new ArrayList<>();
+        List<CqCode> cqCodeList = cqCodeFilter(message);
+
+        for (CqCode cqCode: cqCodeList){
+            if (cqCode.getCQ() == Cq.IMAGE)
+                CqCodeList.add(cqCode);
+        }
+
+        return CqCodeList;
+
+    }
 }
