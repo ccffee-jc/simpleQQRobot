@@ -303,6 +303,66 @@ public class CqUserExample {
             addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
+
+        public Criteria andSaveimagestatusIsNull() {
+            addCriterion("saveImageStatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusIsNotNull() {
+            addCriterion("saveImageStatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusEqualTo(Integer value) {
+            addCriterion("saveImageStatus =", value, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusNotEqualTo(Integer value) {
+            addCriterion("saveImageStatus <>", value, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusGreaterThan(Integer value) {
+            addCriterion("saveImageStatus >", value, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("saveImageStatus >=", value, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusLessThan(Integer value) {
+            addCriterion("saveImageStatus <", value, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusLessThanOrEqualTo(Integer value) {
+            addCriterion("saveImageStatus <=", value, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusIn(List<Integer> values) {
+            addCriterion("saveImageStatus in", values, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusNotIn(List<Integer> values) {
+            addCriterion("saveImageStatus not in", values, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusBetween(Integer value1, Integer value2) {
+            addCriterion("saveImageStatus between", value1, value2, "saveimagestatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaveimagestatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("saveImageStatus not between", value1, value2, "saveimagestatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

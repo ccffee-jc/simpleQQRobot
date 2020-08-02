@@ -31,8 +31,10 @@ public interface CqUserMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into cq_user (qqNum, name)",
-        "values (#{qqnum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})"
+        "insert into cq_user (qqNum, name, ",
+        "saveImageStatus)",
+        "values (#{qqnum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
+        "#{saveimagestatus,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(CqUser record);
@@ -45,20 +47,22 @@ public interface CqUserMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="qqNum", property="qqnum", jdbcType=JdbcType.VARCHAR),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR)
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="saveImageStatus", property="saveimagestatus", jdbcType=JdbcType.INTEGER)
     })
     List<CqUser> selectByExample(CqUserExample example);
 
     @Select({
         "select",
-        "id, qqNum, name",
+        "id, qqNum, name, saveImageStatus",
         "from cq_user",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="qqNum", property="qqnum", jdbcType=JdbcType.VARCHAR),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR)
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="saveImageStatus", property="saveimagestatus", jdbcType=JdbcType.INTEGER)
     })
     CqUser selectByPrimaryKey(Integer id);
 
@@ -74,7 +78,8 @@ public interface CqUserMapper {
     @Update({
         "update cq_user",
         "set qqNum = #{qqnum,jdbcType=VARCHAR},",
-          "name = #{name,jdbcType=VARCHAR}",
+          "name = #{name,jdbcType=VARCHAR},",
+          "saveImageStatus = #{saveimagestatus,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(CqUser record);

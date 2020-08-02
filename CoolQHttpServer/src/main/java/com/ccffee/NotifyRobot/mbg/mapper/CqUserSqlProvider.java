@@ -37,6 +37,10 @@ public class CqUserSqlProvider {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
+        if (record.getSaveimagestatus() != null) {
+            sql.VALUES("saveImageStatus", "#{saveimagestatus,jdbcType=INTEGER}");
+        }
+        
         return sql.toString();
     }
 
@@ -49,6 +53,7 @@ public class CqUserSqlProvider {
         }
         sql.SELECT("qqNum");
         sql.SELECT("name");
+        sql.SELECT("saveImageStatus");
         sql.FROM("cq_user");
         applyWhere(sql, example, false);
         
@@ -78,6 +83,10 @@ public class CqUserSqlProvider {
             sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         }
         
+        if (record.getSaveimagestatus() != null) {
+            sql.SET("saveImageStatus = #{record.saveimagestatus,jdbcType=INTEGER}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -89,6 +98,7 @@ public class CqUserSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("qqNum = #{record.qqnum,jdbcType=VARCHAR}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        sql.SET("saveImageStatus = #{record.saveimagestatus,jdbcType=INTEGER}");
         
         CqUserExample example = (CqUserExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -105,6 +115,10 @@ public class CqUserSqlProvider {
         
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSaveimagestatus() != null) {
+            sql.SET("saveImageStatus = #{saveimagestatus,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

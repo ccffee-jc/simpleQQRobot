@@ -6,9 +6,7 @@ import com.ccffee.NotifyRobot.mbg.mapper.CqGroupMapper;
 import com.ccffee.NotifyRobot.mbg.mapper.CqGroupmessageMapper;
 import com.ccffee.NotifyRobot.mbg.mapper.CqUserMapper;
 import com.ccffee.NotifyRobot.mbg.model.*;
-import com.ccffee.NotifyRobot.service.CqMessageATRobotService;
-import com.ccffee.NotifyRobot.service.CqMessageEntryService;
-import com.ccffee.NotifyRobot.service.CqMessageATGroupOtherMemberService;
+import com.ccffee.NotifyRobot.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +17,19 @@ import java.util.*;
 
 @Service
 public class CqMessageEntryServicelmpl implements CqMessageEntryService {
-    private Logger LOGGER = LoggerFactory.getLogger(CqMessageEntryServicelmpl.class);
-
-    @Autowired
-    private CqGroupMapper cqGroupMapper;
-    @Autowired
-    private CqGroupmessageMapper cqGroupmessageMapper;
-    @Autowired
-    private CqUserMapper cqUserMapper;
     @Autowired
     private CqMessageATGroupOtherMemberService cqMessageATGroupOtherMemberService;
     @Autowired
     private CqMessageATRobotService cqMessageATRobotService;
+    @Autowired
+    private CqMessageNoATService cqMessageNoATService;
+    @Autowired
+    private CqUserService cqUserService;
+    @Autowired
+    private CqGroupService cqGroupService;
+    @Autowired
+    private CqGroupMessageService cqGroupMessageService;
+
 
     @Value("${qq.num.robot}")
     private String robotQQNum;
@@ -56,91 +55,52 @@ public class CqMessageEntryServicelmpl implements CqMessageEntryService {
     }
 
     private HashMap groupMassage(HashMap param){
-
-
         //判断该消息是否为普通消息
         String subType = (String)param.get("sub_type");
         if (!subType.equals("normal"))return null;
 
         //获取参数
-        String groupId = ((Integer)param.get("group_id")).toString();
+        String groupNum = ((Integer)param.get("group_id")).toString();
         HashMap sender = (HashMap)param.get("sender");
-        String userId = null;
+        String senderQQNum = null;
         if (sender.get("user_id").getClass() == Integer.class) {
-            userId = ((Integer)sender.get("user_id")).toString();
+            senderQQNum = ((Integer)sender.get("user_id")).toString();
         }else if (sender.get("user_id").getClass() == Long.class) {
-            userId = ((Long)sender.get("user_id")).toString();
+            senderQQNum = ((Long)sender.get("user_id")).toString();
         }
         String nickname = (String)sender.get("nickname");
         String message = (String)param.get("message");
         Integer time = (Integer)param.get("time");
 
-        System.out.println(message);
-
         /**
          * 获取用户
          * 若数据库中无该用户信息，则存储该用户
          */
-        CqUser cqUser = getUserByQQNum(userId, nickname);
+        CqUser cqUser = cqUserService.getUserByQQNum(senderQQNum);
+        if (cqUser == null )cqUser = cqUserService.saveUser(nickname, senderQQNum);
 
         /**
          * 获取群组
          * 若数据库中无该群组信息，则存储该群组
          */
-        CqGroup cqGroup = getGroupByGroupId(groupId);
+        CqGroup cqGroup = cqGroupService.getGroupByGroupNum(groupNum);
+        if (cqGroup == null) cqGroup = cqGroupService.saveGroup(groupNum);
 
         /**
          * 存储群租信息
          */
-        saveMessage(message, cqUser, cqGroup);
+        cqGroupMessageService.saveMessage(message, cqUser, cqGroup);
 
         //群组有@消息
         if (CqCodeUtil.checkMessageIsAT2QQNum(message, "*")) {
             //艾特了小黑机器人
             if (CqCodeUtil.checkMessageIsAT2QQNum(message, robotQQNum)) {
-                return cqMessageATRobotService.messageDistributor(message, groupId, userId);
+                return cqMessageATRobotService.messageDistributor(message, groupNum, senderQQNum);
             } else {
-                return cqMessageATGroupOtherMemberService.messageDistributor(message, groupId, userId);
+                return cqMessageATGroupOtherMemberService.messageDistributor(message, groupNum, senderQQNum);
             }
+        }else {
+            return cqMessageNoATService.messageDistributor(message, groupNum, senderQQNum);
         }
-        return null;
-    }
-
-    private void saveMessage(String message, CqUser cqUser, CqGroup cqGroup) {
-        CqGroupmessage cqMessage = new CqGroupmessage();
-        cqMessage.setGroupId(cqGroup.getId());
-        cqMessage.setUserId(cqUser.getId());
-        cqMessage.setMessage(message);
-        cqMessage.setTime(new Date());
-        cqGroupmessageMapper.insert(cqMessage);
-    }
-
-
-    private CqGroup getGroupByGroupId(String groupId) {
-        CqGroupExample cqGroupExample = new CqGroupExample();
-        cqGroupExample.createCriteria().andNumEqualTo(groupId);
-        List<CqGroup> cqGroupList = cqGroupMapper.selectByExample(cqGroupExample);
-        CqGroup cqGroup = null;
-        if (cqGroupList.size() == 0){
-            cqGroup = new CqGroup();
-            cqGroup.setNum(groupId);
-            cqGroupMapper.insert(cqGroup);
-        }else cqGroup = cqGroupList.get(0);
-        return cqGroup;
-    }
-
-
-    private CqUser getUserByQQNum(String userId, String nickname) {
-        CqUserExample cqUserExample = new CqUserExample();
-        cqUserExample.createCriteria().andQqnumEqualTo(userId);
-        List<CqUser> cqUserList = cqUserMapper.selectByExample(cqUserExample);
-        CqUser cqUser = null;
-        if (cqUserList.size() == 0){
-            cqUser = new CqUser();
-            cqUser.setName(nickname);
-            cqUser.setQqnum(userId);
-            cqUserMapper.insert(cqUser);
-        }else cqUser = cqUserList.get(0);
-        return cqUser;
     }
 }
